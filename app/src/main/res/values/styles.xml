@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="RecipeCardTextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:maxLines">1</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:drawablePadding">4dp</item>
+
+    </style>
+
+    <style name="RecipeCardTextView.Title" parent="RecipeCardTextView">
+        <item name="android:textStyle">italic|bold</item>
+        <item name="android:textSize">18sp</item>
+
+    </style>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NeRecipe</string>
+    <string name="title_all_recipes">Все рецепты</string>
+    <string name="title_favorites">Избранные</string>
+    <string name="buter_author">История кулинарии</string>
+    <string name="buter_title">Бутер</string>
+    <string name="minutes">%1$d мин</string>
+    <string name="author">Автор: %1$s</string>
+</resources>

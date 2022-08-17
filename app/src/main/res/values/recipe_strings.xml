@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cuisine">Cuisine: %1$s</string>
+    <string name="russian_category">Russian</string>
+    <string name="european_category">European</string>
+    <string name="asian_category">Asian</string>
+    <string name="pan_asian_category">Pan-Asian</string>
+    <string name="eastern_category">Eastern</string>
+    <string name="american_category">American</string>
+    <string name="mediterranean_category">Mediterranean</string>
+    <string-array name="cuisine_categories">
+        <item>Russian</item>
+        <item>European</item>
+        <item>Asian</item>
+        <item>Pan-Asian</item>
+        <item>Eastern</item>
+        <item>American</item>
+        <item>Mediterranean</item>
+    </string-array>
+</resources>

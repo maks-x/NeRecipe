@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">NeRecipe</string>
+    <string name="title_all_recipes">All recipes</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="buter_author">History of cooking</string>
+    <string name="buter_title">Russian sandwich</string>
+    <string name="minutes">%1$d min</string>
+    <string name="author">Author: %1$s</string>
+</resources>
