@@ -86,22 +86,13 @@
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:backgroundTint="@android:color/transparent" />
+            android:backgroundTint="@android:color/transparent"
+            android:contentDescription="@string/recipe_card" />
 
         <com.google.android.material.button.MaterialButton
+            style="@style/RecipeImageButton"
             android:id="@+id/menu"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="@android:color/transparent"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
             app:icon="@drawable/ic_more_vert_48dp"
-            app:iconGravity="textStart"
-            app:iconPadding="0dp"
-            app:iconSize="24dp"
-            app:iconTint="?attr/colorControlNormal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/title"
             app:layout_constraintTop_toTopOf="parent"
@@ -109,18 +100,10 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/favorites"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="@android:color/transparent"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
+            style="@style/RecipeImageButton"
+            android:checkable="true"
             app:icon="@drawable/ic_favorite_add_48dp"
-            app:iconGravity="textStart"
-            app:iconPadding="0dp"
-            app:iconSize="24dp"
-            app:iconTint="?attr/colorPrimary"
+            app:iconTint="@color/color_favorites_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

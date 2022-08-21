@@ -6,15 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import ru.netology.nerecipe.adapter.RecipeFeedAdapter
 import ru.netology.nerecipe.adapter.RecipeStagesAdapter
-import ru.netology.nerecipe.databinding.FragmentAllBinding
 import ru.netology.nerecipe.databinding.FragmentRecipeBinding
-import ru.netology.nerecipe.databinding.RecipeCardBinding
-import ru.netology.nerecipe.databinding.RecipesFeedBinding
-import ru.netology.nerecipe.utils.renderRecipe
+import ru.netology.nerecipe.utils.renderRecipeCard
 import ru.netology.nerecipe.viewModel.RecipeViewModel
 
 class RecipeFragment : Fragment() {
@@ -31,15 +26,21 @@ class RecipeFragment : Fragment() {
 
         val binding = FragmentRecipeBinding.inflate(inflater, container, false)
 
-        val adapter = RecipeStagesAdapter(viewModel)
+        val adapter = RecipeStagesAdapter()
 
-        val recipe = navArgs<RecipeFragmentArgs>().value.recipe
+        val recipeData = navArgs<RecipeFragmentArgs>().value.recipeData
 
-        binding.recipe.renderRecipe(recipe)
+        binding.recipe.renderRecipeCard(recipeData)
 
         binding.stages.adapter = adapter
 
-        adapter.submitList(recipe.stages)
+        viewModel.stagesQuery(recipeData.id)
+
+        viewModel.currentStages.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { stages ->
+                adapter.submitList(stages)
+            }
+        }
 
         return binding.root
     }

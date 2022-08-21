@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import ru.netology.nerecipe.adapter.RecipeFeedAdapter
 import ru.netology.nerecipe.databinding.FragmentFavoritesBinding
-import ru.netology.nerecipe.databinding.RecipesFeedBinding
 import ru.netology.nerecipe.viewModel.RecipeViewModel
 
 class FavoritesFragment : Fragment() {

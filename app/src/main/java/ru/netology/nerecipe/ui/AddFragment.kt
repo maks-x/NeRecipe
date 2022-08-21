@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import ru.netology.nerecipe.adapter.RecipeFeedAdapter
 import ru.netology.nerecipe.databinding.FragmentAllBinding
-import ru.netology.nerecipe.databinding.RecipesFeedBinding
 import ru.netology.nerecipe.viewModel.RecipeViewModel
 
 class AddFragment : Fragment() {

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.annotation.ExperimentalCoilApi
@@ -15,7 +14,7 @@ import coil.imageLoader
 import coil.load
 import ru.netology.nerecipe.R
 import ru.netology.nerecipe.databinding.FragmentCreateBinding
-import ru.netology.nerecipe.obj.CreateRecipeTextWatcher
+import ru.netology.nerecipe.utils.CreateRecipeTextWatcher
 import ru.netology.nerecipe.utils.ImagePicker
 import ru.netology.nerecipe.viewModel.RecipeViewModel
 

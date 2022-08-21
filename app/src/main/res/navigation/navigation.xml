@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_navigation_recipes_to_recipeFragment"
             app:destination="@id/recipeFragment" />
-        <action
-            android:id="@+id/action_navigation_recipes_to_navigation_add"
-            app:destination="@id/navigation_add" />
     </fragment>
 
     <fragment
@@ -34,12 +31,12 @@
         android:label="RecipeFragment"
         tools:layout="@layout/fragment_recipe">
         <argument
-            android:name="recipe"
-            app:argType="ru.netology.nerecipe.obj.Recipe" />
+            android:name="recipeData"
+            app:argType="ru.netology.nerecipe.obj.RecipeData" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_add"
+        android:id="@+id/navigation_new_recipe"
         android:name="ru.netology.nerecipe.ui.CreateFragment"
         android:label="New"
         tools:layout="@layout/fragment_create"/>

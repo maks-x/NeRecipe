@@ -1,13 +1,13 @@
-package ru.netology.nerecipe
+package ru.netology.nerecipe.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import ru.netology.nerecipe.R
 import ru.netology.nerecipe.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_recipes, R.id.navigation_favorites
+                R.id.navigation_recipes, R.id.navigation_new_recipe, R.id.navigation_favorites
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

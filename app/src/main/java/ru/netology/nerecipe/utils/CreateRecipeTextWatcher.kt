@@ -1,11 +1,10 @@
-package ru.netology.nerecipe.obj
+package ru.netology.nerecipe.utils
 
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.core.view.iterator
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
-import ru.netology.nerecipe.R
 import ru.netology.nerecipe.databinding.FragmentCreateBinding
 
 class CreateRecipeTextWatcher(private val binding: FragmentCreateBinding) : TextWatcher {

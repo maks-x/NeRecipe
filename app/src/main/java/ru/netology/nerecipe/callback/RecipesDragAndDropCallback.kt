@@ -3,9 +3,8 @@ package ru.netology.nerecipe.callback
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.RecyclerView
-import ru.netology.nerecipe.viewModel.RecipeInteractionListener
 
-class RecipesDragAndDropCallback(private val interactionListener: RecipeInteractionListener) :
+class RecipesDragAndDropCallback(private val changeDataAfterMove: (fromNumber: Int, toNumber: Int) -> Unit) :
     ItemTouchHelper.SimpleCallback(UP or DOWN, 0) {
 
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
@@ -22,11 +21,10 @@ class RecipesDragAndDropCallback(private val interactionListener: RecipeInteract
     ): Boolean {
         val from = viewHolder.absoluteAdapterPosition
         val to = target.absoluteAdapterPosition
-        interactionListener.onReplaceRecipeView(from, to)
-        //TODO на этом этапе при перетаскивании самого верхнего видимого адаптера, очень велика
-        // скорость анимации скролла. Как с этим бороться? Различные комбинации
-        // notifyItem/Range/DataSetChanged c onReplaceRecipeView() вообще делают анимацию
-        // малопредсказуемой для пользователя
+        val adapter = recyclerView.adapter
+        adapter?.notifyItemMoved(from, to)
+
+        changeDataAfterMove(from, to)
 
         return true
     }

@@ -7,9 +7,9 @@
         android:title="@string/title_all_recipes"/>
 
     <item
-        android:id="@+id/navigation_add"
+        android:id="@+id/navigation_new_recipe"
         android:icon="@drawable/ic_add_24"
-        android:title="New" />
+        android:title="@string/newRecipe" />
 
     <item
         android:id="@+id/navigation_favorites"
