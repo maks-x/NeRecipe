@@ -16,7 +16,7 @@
     <string name="filter_title">Национально-географические категории:</string>
     <string name="submit">Применить</string>
     <string name="clear_filter">Очистить фильтр</string>
-    <string name="stage_layout_hint">Stage %1d</string>
+    <string name="stage_layout_hint">Этап %1d</string>
     <string name="cuisine">Кухня:</string>
     <string name="ingredients">Ингредиенты:</string>
     <string name="cooking_time">Время приготовления:</string>
