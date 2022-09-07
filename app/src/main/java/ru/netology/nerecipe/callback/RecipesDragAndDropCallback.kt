@@ -24,6 +24,7 @@ class RecipesDragAndDropCallback(private val changeDataAfterMove: (fromNumber: I
         val adapter = recyclerView.adapter
         adapter?.notifyItemMoved(from, to)
 
+
         changeDataAfterMove(from, to)
 
         return true

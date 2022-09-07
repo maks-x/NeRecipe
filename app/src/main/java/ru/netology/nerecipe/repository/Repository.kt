@@ -1,7 +1,6 @@
 package ru.netology.nerecipe.repository
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import ru.netology.nerecipe.db.*
 import ru.netology.nerecipe.obj.CookingStage
@@ -13,28 +12,59 @@ class Repository(
     contextForSample: Context
 ) : RecipesRepository {
 
-    override val recipesWithoutStages: LiveData<List<RecipeData>>
-        get() {
-            return dao.getAllRecipes().map { listRecipesData ->
-                listRecipesData.map { it.toRecipeData() }
-            }
-        }
-
-    override fun getRecipeStages(recipeId: Long) =
-        dao.getRecipeStages(recipeId).map { it.toCookingStage() }
-
     init {
-        insertSampleRecipes(contextForSample, dao) { }
+        insertSampleRecipes(contextForSample, dao)
     }
 
+    override var recipeDraftPair: Pair<RecipeData, List<CookingStage>>?
+        get() = dao.getDraftRecipeData()?.let { recipeDataEntity ->
+            Pair(
+                recipeDataEntity.toRecipeData(),
+                dao.getRecipeStagesEntities(RecipeData.DRAFT_ID_NEW).map { it.toCookingStage() }
+            )
+        }
+        set(value) {
+            value?.let { recipePair ->
+                dao.addRecipe(
+                    recipePair.first.toRecipeDataEntity(),
+                    recipePair.second.map { it.toCookingStageEntity() }
+                )
+            } ?: dao.removeRecipe(RecipeData.DRAFT_ID_NEW)
+        }
+
+    override val recipesWithoutStages = dao.getAllRecipes().map { listRecipesData ->
+        listRecipesData.map { it.toRecipeData() }
+    }
+
+    override fun getRecipeData(recipeId: Long) =
+        getRecipeDataEntity(recipeId).toRecipeData()
+
+    private fun getRecipeDataEntity(recipeId: Long) =
+        dao.getRecipeById(recipeId)
+
+    override fun getRecipeStages(recipeId: Long) =
+        getStagesEntities(recipeId).map { it.toCookingStage() }
+
+    private fun getStagesEntities(recipeId: Long) =
+        dao.getRecipeStagesEntities(recipeId)
+
     override fun save(recipeData: RecipeData, stages: List<CookingStage>) {
-        val stagesEntities = stages.map { it.toCookingStageEntity() }
         val isNew = recipeData.id == RecipeData.DEFAULT_RECIPE_ID
-        val recipeDataEntity = recipeData.buildRecipeDataEntity()
+        val stagesEntities = stages.map { it.toCookingStageEntity() }
+        val recipeDataEntity = recipeData.toRecipeDataEntity()
         if (isNew) {
             dao.addRecipe(recipeDataEntity, stagesEntities)
         } else {
-            dao.updateRecipeEntirely(recipeDataEntity, stagesEntities)
+            val isFavorite = getRecipeDataEntity(recipeData.id).isFavorite
+            dao.updateRecipe(recipeDataEntity.copy(isFavorite = isFavorite))
+            val currentStagesIds = getStagesEntities(recipeData.id).map { it.id }
+            stagesEntities.forEachIndexed { index, cookingStageEntity ->
+                if (index <= currentStagesIds.lastIndex) {
+                    dao.updateStage(cookingStageEntity.copy(id = currentStagesIds[index]))
+                } else dao.addCookingStage(cookingStageEntity)
+            }
+            if (stages.size < currentStagesIds.size)
+                dao.removeExtraStages(recipeData.id, stages.size)
         }
     }
 

@@ -3,15 +3,17 @@ package ru.netology.nerecipe.viewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.map
 import ru.netology.nerecipe.R
 import ru.netology.nerecipe.db.AppDb
 import ru.netology.nerecipe.obj.CookingStage
 import ru.netology.nerecipe.obj.RecipeData
 import ru.netology.nerecipe.repository.RecipesRepository
 import ru.netology.nerecipe.repository.Repository
-import ru.netology.nerecipe.utils.SingleEvent
+import ru.netology.nerecipe.ui.AllFragment
+import ru.netology.nerecipe.ui.FavoritesFragment
+import ru.netology.nerecipe.utils.SingleLiveEvent
+import ru.netology.nerecipe.utils.cuisineIDtoString
 
 class RecipeViewModel(
     application: Application
@@ -21,62 +23,101 @@ class RecipeViewModel(
         dao = AppDb.getInstance(
             context = application
         ).recipeDao,
-        contextForSample = application
+        contextForSample = application.applicationContext
     )
 
-    private val currentCuisineFilters =
-        application.resources.getStringArray(R.array.cuisine_categories).toMutableList()
+    private val _data by repository::recipesWithoutStages
+    val data
+        get() = _data.map { it.filtered() }
 
-    fun showCuisine(cuisine: String, callback :(List<RecipeData>) -> Unit) {
-        if (currentCuisineFilters.contains(cuisine)) return
-        currentCuisineFilters.add(cuisine)
-        callback(recipes)
+    var recipeDraftPair by repository::recipeDraftPair
+        private set
+
+    fun setDraft(draftRecipe: Pair<RecipeData, List<CookingStage>>?) {
+        recipeDraftPair = draftRecipe
     }
 
-    fun hideCuisine(cuisine: String, callback :(List<RecipeData>) -> Unit) {
-        currentCuisineFilters.remove(cuisine)
-        callback(recipes)
+    fun clearDraft() {
+        recipeDraftPair = null
     }
 
-    val data by repository::recipesWithoutStages
-    private val recipes
-        get() = checkNotNull(data.value) {
-            "EMPTY DATA!!!"
-        }.filter{
+    val favoriteRecipes
+        get() = _data.map { recipes ->
+            recipes.filter { it.isFavorite }
+        }
+
+    private val allRecipes
+        get() = checkNotNull(_data.value)
+
+    private val _filterEvent = SingleLiveEvent<List<RecipeData>>()
+    val filterEvent: LiveData<List<RecipeData>>
+        get() = _filterEvent
+
+    private val _navigateFromAllToEditEvent = SingleLiveEvent<Long>()
+    val navigateToCreateFragmentEvent: LiveData<Long>
+        get() = _navigateFromAllToEditEvent
+    private val _navigateFromFavoritesToEditEvent = SingleLiveEvent<Long>()
+    val navigateFromFavoritesToEditEvent: LiveData<Long>
+        get() = _navigateFromFavoritesToEditEvent
+
+
+    private val allCuisines =
+        application.resources.getStringArray(R.array.cuisine_categories).toList()
+
+    private var currentCuisineFilters = allCuisines
+
+    var currentTitleFilter = ""
+        private set
+
+    private fun List<RecipeData>.filtered() =
+        filter {
             currentCuisineFilters.contains(it.cuisine)
+        }.filter {
+            it.title.contains(currentTitleFilter)
         }
 
-    val filteredEvent = MutableLiveData<SingleEvent<List<RecipeData>>>()
-
-    val recipeClickedEvent = MutableLiveData<SingleEvent<RecipeData>>()
-
-    private val _linkImgData = MutableLiveData<String>()
-    val linkImgData: LiveData<String>
-        get() = _linkImgData
-
-    fun setLinkValue(string: String) {
-        _linkImgData.value = string
+    fun submitCuisineFilter(filtersIds: List<Int>) {
+        currentCuisineFilters =
+            if (filtersIds.isEmpty()) {
+                allCuisines
+            } else {
+                filtersIds.map { cuisineChipId ->
+                    getApplication<Application>().cuisineIDtoString(cuisineChipId)
+                }
+            }
+        _filterEvent.value = allRecipes.filtered()
     }
 
-    fun dataFilteredBy(predicate: (RecipeData) -> Boolean) {
-        val filteredRecipes = recipes.filter(predicate)
-        filteredEvent.value = SingleEvent(filteredRecipes)
+    fun submitTitleFilter(filter: String) {
+        currentTitleFilter = filter
+        _filterEvent.value = allRecipes.filtered()
     }
 
-    fun dataFilteredBy(vararg predicates: (RecipeData) -> Boolean): List<RecipeData> {
-        val list = recipes.toMutableList()
-        predicates.forEach { predicate ->
-            list.retainAll(predicate)
-        }
-        return list
+    val filteredEvent = SingleLiveEvent<List<RecipeData>>()
+
+    val onAllFragmentRecipeClickedEvent = SingleLiveEvent<RecipeData>()
+    val onFavoritesFragmentRecipeClickedEvent = SingleLiveEvent<RecipeData>()
+
+    val stagesRenderingEvent = SingleLiveEvent<List<CookingStage>>()
+    fun renderStageRequest(recipeId: Long) {
+        stagesRenderingEvent.value = repository.getRecipeStages(recipeId)
     }
 
-    val currentStages = MutableLiveData<SingleEvent<List<CookingStage>>>()
-    fun stagesQuery(recipeId: Long){
-        currentStages.value = SingleEvent(repository.getRecipeStages(recipeId))
+    val recipeRenderingEvent = SingleLiveEvent<Pair<RecipeData, List<CookingStage>>?>()
+    fun renderRecipeRequest(recipeId: Long) {
+        recipeRenderingEvent.value =
+            if (recipeId == RecipeData.DRAFT_ID_NEW) {
+                repository.recipeDraftPair
+            } else Pair(
+                repository.getRecipeData(recipeId),
+                repository.getRecipeStages(recipeId)
+            )
     }
 
     // region RecipeInteractionListener
+    override fun saveRecipe(recipeData: RecipeData, stages: List<CookingStage>) {
+        repository.save(recipeData, stages)
+    }
 
     // как быть, если элементов станет больше, чем Integer.MAX_VALUE?
     // ведь viewHolder.absoluteAdapterPosition возвращает Int
@@ -88,17 +129,28 @@ class RecipeViewModel(
         repository.remove(recipeId)
     }
 
-    override fun onEditClick(recipeData: RecipeData) {
-        TODO("Not yet implemented")
+    override fun onEditClick(recipeId: Long, fromFragmentTag: String) {
+        when (fromFragmentTag) {
+            AllFragment.FROM_ALL_FRAGMENT_TAG ->
+                _navigateFromAllToEditEvent.value = recipeId
+            FavoritesFragment.FROM_FAVORITES_FRAGMENT_TAG ->
+                _navigateFromFavoritesToEditEvent.value = recipeId
+        }
     }
 
     override fun onAddToFavoritesClick(recipeId: Long) {
         repository.addToFavorites(recipeId)
     }
 
-    override fun onRecipeClick(recipeData: RecipeData) {
+    override fun onRecipeClick(recipeId: Long, fromFragmentTag: String) {
+        val recipeData = repository.getRecipeData(recipeId)
+        when (fromFragmentTag) {
+            AllFragment.FROM_ALL_FRAGMENT_TAG ->
+                onAllFragmentRecipeClickedEvent.value = recipeData
+            FavoritesFragment.FROM_FAVORITES_FRAGMENT_TAG ->
+                onFavoritesFragmentRecipeClickedEvent.value = recipeData
+        }
 
-        recipeClickedEvent.value = SingleEvent(recipeData)
     }
     // endregion RecipeInteractionListener
 }

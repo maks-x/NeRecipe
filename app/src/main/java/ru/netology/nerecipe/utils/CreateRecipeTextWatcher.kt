@@ -2,7 +2,7 @@ package ru.netology.nerecipe.utils
 
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.core.view.iterator
+import androidx.core.view.children
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import ru.netology.nerecipe.databinding.FragmentCreateBinding
@@ -10,7 +10,8 @@ import ru.netology.nerecipe.databinding.FragmentCreateBinding
 class CreateRecipeTextWatcher(private val binding: FragmentCreateBinding) : TextWatcher {
 
     private val listEditText
-        get() = binding.container.iterator().asSequence()
+        get() = binding.dataContainer.children
+            .plus(binding.stagesContainer.children)
             .filterIsInstance<TextInputLayout>()
             .map { it.editText }
             .filterNotNull()
@@ -34,7 +35,7 @@ class CreateRecipeTextWatcher(private val binding: FragmentCreateBinding) : Text
     override fun afterTextChanged(s: Editable?) {
         listEditText.forEach { editText ->
             if (editText.text.isNullOrBlank()) {
-//                createButton.isEnabled = false
+                createButton.isEnabled = false
                 return
             }
         }

@@ -9,7 +9,7 @@ import ru.netology.nerecipe.databinding.RecipeStageBinding
 import ru.netology.nerecipe.obj.CookingStage
 import ru.netology.nerecipe.utils.renderStage
 
-class RecipeStagesAdapter()
+class RecipeStagesAdapter
     : ListAdapter<CookingStage, RecipeStagesAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

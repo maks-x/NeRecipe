@@ -8,21 +8,19 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import ru.netology.nerecipe.R
 import ru.netology.nerecipe.databinding.FragmentCreateBinding
-import ru.netology.nerecipe.obj.RecipeData
 import ru.netology.nerecipe.utils.*
 import ru.netology.nerecipe.viewModel.RecipeViewModel
 
-class CreateFragment : Fragment() {
+class EditFragment : Fragment() {
 
     private val viewModel: RecipeViewModel by viewModels(
         ownerProducer = ::requireParentFragment
     )
 
     private lateinit var binding: FragmentCreateBinding
-
-    private var needDraft = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,21 +38,22 @@ class CreateFragment : Fragment() {
                 .sorted()
         )
         binding.cuisineCategoryActv.setAdapter(cuisineArrayAdapter)
+        val currentRecipeId = navArgs<EditFragmentArgs>().value.recipeId
 
-        viewModel.renderRecipeRequest(RecipeData.DRAFT_ID_NEW)
+        binding.createButton.setText(R.string.edit_recipe)
 
-
+        viewModel.renderRecipeRequest(currentRecipeId)
 
         with(binding) {
 
             viewModel.recipeRenderingEvent.observe(viewLifecycleOwner) {
                 if (it == null) {
-                    inflateNewStageLayout {
+                    binding.inflateNewStageLayout {
                         startIconDrawable = null
                     }
                     return@observe
                 }
-                fillUpWithRecipe(it.first, it.second)
+                binding.fillUpWithRecipe(it.first, it.second)
                 textWatcher.initialize()
                 textWatcher.afterTextChanged(null)
             }
@@ -64,12 +63,10 @@ class CreateFragment : Fragment() {
             }
 
             createButton.setOnClickListener {
-                val recipePair = buildRecipePair(RecipeData.DEFAULT_RECIPE_ID)
+                val recipePair = buildRecipePair(currentRecipeId)
                 recipePair.let {
                     viewModel.saveRecipe(it.first, it.second)
                 }
-                viewModel.clearDraft()
-                needDraft = false
                 findNavController().navigateUp()
             }
 
@@ -80,12 +77,6 @@ class CreateFragment : Fragment() {
                 }
             }
         }
-
         return binding.root
-    }
-
-    override fun onDestroyView() {
-        if (needDraft) viewModel.setDraft(binding.buildRecipePair(RecipeData.DRAFT_ID_NEW))
-        super.onDestroyView()
     }
 }

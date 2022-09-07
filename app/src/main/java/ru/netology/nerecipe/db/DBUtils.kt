@@ -3,7 +3,7 @@ package ru.netology.nerecipe.db
 import ru.netology.nerecipe.obj.CookingStage
 import ru.netology.nerecipe.obj.RecipeData
 
-internal fun RecipeData.buildRecipeDataEntity() = RecipeDataEntity(
+internal fun RecipeData.toRecipeDataEntity() = RecipeDataEntity(
     id = id,
     title = title,
     author = author,

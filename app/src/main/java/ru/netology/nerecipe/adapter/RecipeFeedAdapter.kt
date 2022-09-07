@@ -13,7 +13,8 @@ import ru.netology.nerecipe.utils.renderRecipeCard
 import ru.netology.nerecipe.viewModel.RecipeInteractionListener
 
 class RecipeFeedAdapter(
-    private val interactionListener: RecipeInteractionListener
+    private val interactionListener: RecipeInteractionListener,
+    private val fomFragmentTag: String
 ) : ListAdapter<RecipeData, RecipeFeedAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,10 +29,12 @@ class RecipeFeedAdapter(
         holder.bind(getItem(position))
     }
 
-    class ViewHolder(
+    inner class ViewHolder(
         private val recipeCardBinding: RecipeCardBinding,
         listener: RecipeInteractionListener
     ) : RecyclerView.ViewHolder(recipeCardBinding.root) {
+        var recipeId: Long? = null
+            private set
 
         private lateinit var recipeData: RecipeData
 
@@ -39,13 +42,13 @@ class RecipeFeedAdapter(
             PopupMenu(itemView.context, recipeCardBinding.menu).apply {
                 inflate(R.menu.popup_recipe_options)
                 setOnMenuItemClickListener { item ->
-                    when(item.itemId) {
+                    when (item.itemId) {
                         R.id.remove -> {
                             listener.onRemoveClick(recipeData.id)
                             true
                         }
                         R.id.edit -> {
-                            listener.onEditClick(recipeData)
+                            listener.onEditClick(recipeData.id, fomFragmentTag)
                             true
                         }
                         else -> false
@@ -61,13 +64,14 @@ class RecipeFeedAdapter(
                     listener.onAddToFavoritesClick(recipeData.id)
                 }
                 recipeArea.setOnClickListener {
-                    listener.onRecipeClick(recipeData)
+                    listener.onRecipeClick(recipeData.id, fomFragmentTag)
                 }
             }
         }
 
         fun bind(recipeData: RecipeData) {
             this.recipeData = recipeData
+            recipeId = recipeData.id
             recipeCardBinding.renderRecipeCard(recipeData)
         }
     }
@@ -78,6 +82,5 @@ class RecipeFeedAdapter(
 
         override fun areContentsTheSame(oldItem: RecipeData, newItem: RecipeData) =
             oldItem == newItem
-
     }
 }

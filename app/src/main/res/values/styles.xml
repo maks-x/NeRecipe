@@ -29,4 +29,12 @@
         <item name="iconSize">24dp</item>
         <item name="iconTint">?attr/colorControlNormal</item>
     </style>
+
+    <style name="RecipeStageLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="endIconDrawable">@drawable/ic_link_checkable</item>
+        <item name="endIconMode">custom</item>
+        <item name="endIconTint">@color/color_link_button</item>
+        <item name="startIconDrawable">@drawable/ic_baseline_delete_forever_24</item>
+        <item name="startIconTint">@android:color/holo_red_light</item>
+    </style>
 </resources>

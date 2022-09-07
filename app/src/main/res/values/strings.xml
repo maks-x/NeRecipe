@@ -6,11 +6,34 @@
     <string name="buter_author">History of cooking</string>
     <string name="buter_title">Russian sandwich</string>
     <string name="minutes">%1$d min</string>
-    <string name="author">Author: %1$s</string>
+    <string name="author_template">Author: %1$s</string>
+    <string name="author">Author:</string>
     <string name="edit_recipe_options">Edit</string>
     <string name="remove_recipe_option">Remove</string>
     <string name="newRecipe">New recipe</string>
     <string name="search_hint">Search by title…</string>
     <string name="recipe_card">Recipe card</string>
-    <string name="filter_title">Choose required cuisines</string>
+    <string name="filter_title">National geographic categories:</string>
+    <string name="submit">Submit</string>
+    <string name="clear_filter">Clear filter</string>
+    <string name="stage_layout_hint">Stage %1d</string>
+    <string name="ingredients">Ingredients:</string>
+    <string name="cooking_time">Cooking time:</string>
+    <string name="cooking_process">The cooking process:</string>
+    <string name="recipe_fragment_label">Details</string>
+    <string name="create_recipe">Create recipe</string>
+    <string name="edit_recipe">Edit recipe</string>
+    <string name="empty_state_message">There are no recipes here yet =(\nBut you can always make a\nRUSSIAN SANDWICH!</string>
+    <string name="empty_state_image">Empty state image</string>
+    <string name="go_to_sandwich">Let\'s go!</string>
+    <string name="title_hint">Enter the title of recipe</string>
+    <string name="recipe_picture_src_hint">Recipe picture src</string>
+    <string name="recipe_picture_description">Recipe picture</string>
+    <string name="cuisine_hint">Cuisine</string>
+    <string name="estimate_time">Estimate time(min)</string>
+    <string name="ingredients_hint">Ingredients</string>
+    <string name="add_stage">Add stage</string>
+    <string name="save_recipe">Save recipe</string>
+    <string name="stage_picture_src_hint">Stage picture src</string>
+    <string name="stage_picture_description">Stage picture</string>
 </resources>

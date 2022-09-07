@@ -18,7 +18,7 @@ import androidx.room.PrimaryKey
         )
     ]
 )
-class CookingStageEntity(
+data class CookingStageEntity(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

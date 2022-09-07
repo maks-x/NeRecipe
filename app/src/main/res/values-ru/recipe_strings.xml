@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="cuisine">Кухня: %1$s</string>
+    <string name="cuisine_template">Кухня: %1$s</string>
     <string name="russian_category">Русская</string>
     <string name="european_category">Европейская</string>
     <string name="asian_category">Азиатская</string>

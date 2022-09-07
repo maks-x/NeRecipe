@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/maks-/.gradle/caches/transforms-3/4ea42d1e19ec320a456c64e430908d85/transformed/appcompat-1.4.2/res/drawable/abc_btn_default_mtrl_shape.xml" value="0.1" />
+        <entry key="..\:/Users/maks-/.gradle/caches/transforms-3/4ea42d1e19ec320a456c64e430908d85/transformed/appcompat-1.4.2/res/drawable/abc_text_cursor_material.xml" value="0.1" />
         <entry key="..\:/Users/maks-/.gradle/caches/transforms-3/8a4e188b0ca6bebd081b7810c81b3ec7/transformed/material-1.6.1/res/drawable/design_fab_background.xml" value="0.105" />
+        <entry key="..\:/Users/maks-/.gradle/caches/transforms-3/8a4e188b0ca6bebd081b7810c81b3ec7/transformed/material-1.6.1/res/layout/design_text_input_end_icon.xml" value="0.1" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable-v24/ic_all_48dp.xml" value="0.15" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable-v24/ic_favorite_add_48dp.xml" value="0.15" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable-v24/ic_favorite_added_48dp.xml" value="0.15" />
@@ -16,24 +19,36 @@
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable-v24/ic_star_48dp.xml" value="0.15" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable-v24/ic_time_48dp.xml" value="0.15" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_add_24.xml" value="0.1555" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_add_link_24.xml" value="0.16" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_add_picture_24.xml" value="0.1" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_author_24.xml" value="0.1545" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_baseline_mode_night_24.xml" value="0.1745" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_baseline_panorama_horizontal_select_24.xml" value="0.1745" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.15" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_delete_link_24.xml" value="0.16" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_download_24.xml" value="0.154" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_download_done_24.xml" value="0.154" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_favorite_add_48dp.xml" value="0.154" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_filter_24.xml" value="0.1" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.15" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_ingredients_24dp.xml" value="0.1545" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_launcher_background.xml" value="0.15" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_link_checkable.xml" value="0.17" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.15" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_show_image_24dp.xml" value="0.11" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_time_48dp.xml" value="0.1" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/shape.xml" value="0.1745" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/empty_state_layout.xml" value="0.23125" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_add.xml" value="0.2484375" />
-        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_all.xml" value="0.264" />
-        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_create.xml" value="0.264" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_all.xml" value="0.25343999226562525" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_create.xml" value="0.19199999414062519" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_dashboard.xml" value="0.2484375" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_favorites.xml" value="0.2484375" />
-        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_filter.xml" value="0.1" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_filter.xml" value="0.264" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_home.xml" value="0.2484375" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_notifications.xml" value="0.2484375" />
-        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_recipe.xml" value="0.2054263565891473" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_recipe.xml" value="0.25343999226562525" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_recipe_stages.xml" value="0.2484375" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/recipe_card.xml" value="0.264" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/recipe_card_layout.xml" value="0.2484375" />
@@ -41,8 +56,10 @@
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/recipe_stage.xml" value="0.2484375" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/recipes_feed.xml" value="0.264" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/recipes_fragment.xml" value="0.2484375" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/stages_layout_sample.xml" value="0.25343999226562525" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/text_view_layout.xml" value="0.2484375" />
-        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/menu/bottom_nav_menu.xml" value="0.23333333333333334" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/menu-v26/bottom_nav_menu.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/menu/bottom_nav_menu.xml" value="0.38399998828125037" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/menu/popup_menu_cuisine.xml" value="0.2484375" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/menu/popup_recipe_options.xml" value="0.24739583333333334" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1745" />

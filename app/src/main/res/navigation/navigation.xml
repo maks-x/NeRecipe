@@ -9,26 +9,40 @@
         android:id="@+id/navigation_recipes"
         android:name="ru.netology.nerecipe.ui.AllFragment"
         android:label="@string/title_all_recipes"
-        tools:layout="@layout/recipes_feed" >
+        tools:layout="@layout/recipes_feed">
         <action
             android:id="@+id/action_navigation_recipes_to_recipeFragment"
             app:destination="@id/recipeFragment" />
+        <action
+            android:id="@+id/all_to_edit"
+            app:destination="@id/editFragment">
+            <argument
+                android:name="recipeId"
+                app:argType="long" />
+        </action>
     </fragment>
 
     <fragment
         android:id="@+id/navigation_favorites"
         android:name="ru.netology.nerecipe.ui.FavoritesFragment"
         android:label="@string/title_favorites"
-        tools:layout="@layout/fragment_favorites" >
+        tools:layout="@layout/fragment_favorites">
         <action
             android:id="@+id/action_navigation_favorites_to_recipeFragment"
             app:destination="@id/recipeFragment" />
+        <action
+            android:id="@+id/favorites_to_create"
+            app:destination="@id/editFragment">
+            <argument
+                android:name="recipeId"
+                app:argType="long" />
+        </action>
     </fragment>
 
     <fragment
         android:id="@+id/recipeFragment"
         android:name="ru.netology.nerecipe.ui.RecipeFragment"
-        android:label="RecipeFragment"
+        android:label="@string/recipe_fragment_label"
         tools:layout="@layout/fragment_recipe">
         <argument
             android:name="recipeData"
@@ -38,7 +52,18 @@
     <fragment
         android:id="@+id/navigation_new_recipe"
         android:name="ru.netology.nerecipe.ui.CreateFragment"
-        android:label="New"
-        tools:layout="@layout/fragment_create"/>
+        android:label="@string/create_recipe"
+        tools:layout="@layout/fragment_create" />
+
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="ru.netology.nerecipe.ui.EditFragment"
+        android:label="@string/edit_recipe"
+        tools:layout="@layout/fragment_create">
+        <argument
+            android:name="recipeId"
+            app:argType="long" />
+
+    </fragment>
 
 </navigation>

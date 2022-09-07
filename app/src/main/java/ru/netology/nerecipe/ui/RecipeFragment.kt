@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import ru.netology.nerecipe.R
 import ru.netology.nerecipe.adapter.RecipeStagesAdapter
 import ru.netology.nerecipe.databinding.FragmentRecipeBinding
-import ru.netology.nerecipe.utils.renderRecipeCard
+import ru.netology.nerecipe.utils.loadResOrURL
 import ru.netology.nerecipe.viewModel.RecipeViewModel
 
 class RecipeFragment : Fragment() {
@@ -30,16 +31,25 @@ class RecipeFragment : Fragment() {
 
         val recipeData = navArgs<RecipeFragmentArgs>().value.recipeData
 
-        binding.recipe.renderRecipeCard(recipeData)
+        val context = binding.root.context
 
-        binding.stages.adapter = adapter
+        with(binding) {
 
-        viewModel.stagesQuery(recipeData.id)
+            recipePicture.loadResOrURL(recipeData.pictureSrc)
+            titleTextView.text = recipeData.title
+            cuisineTextView.text = recipeData.cuisine
+            authorTextView.text = recipeData.author
+            ingredientsTextView.text = recipeData.ingredients
+            timeTextView.text = context.getString(R.string.minutes).format(recipeData.estimateTime)
+            titleTextView.text = recipeData.title
+        }
 
-        viewModel.currentStages.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { stages ->
-                adapter.submitList(stages)
-            }
+        binding.stagesRegion.adapter = adapter
+
+        viewModel.renderStageRequest(recipeData.id)
+
+        viewModel.stagesRenderingEvent.observe(viewLifecycleOwner) { stages ->
+            adapter.submitList(stages)
         }
 
         return binding.root

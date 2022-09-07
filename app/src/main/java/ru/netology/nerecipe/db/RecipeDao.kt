@@ -2,32 +2,42 @@ package ru.netology.nerecipe.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import androidx.room.OnConflictStrategy.REPLACE
+import ru.netology.nerecipe.obj.RecipeData
 
 @Dao
 interface RecipeDao {
 
-    @Query("SELECT * FROM recipes ORDER BY id DESC")
+    @Query("SELECT * FROM recipes WHERE id > 0 ORDER BY id DESC")
     fun getAllRecipes(): LiveData<List<RecipeDataEntity>>
 
     @Query("SELECT * FROM recipes WHERE isFavorite ORDER BY id DESC")
     fun getFavorites(): LiveData<List<RecipeDataEntity>>
 
+    @Query("SELECT * FROM recipes WHERE id == :recipeId")
+    fun getRecipeById(recipeId: Long): RecipeDataEntity
+
     @Query("SELECT * FROM cookingStages WHERE recipeId = :recipeId ORDER BY turn ASC")
-    fun getRecipeStages(recipeId: Long): List<CookingStageEntity>
+    fun getRecipeStagesEntities(recipeId: Long): List<CookingStageEntity>
+
+    @Query("SELECT * FROM recipes WHERE id == ${RecipeData.DRAFT_ID_NEW}")
+    fun getDraftRecipeData(): RecipeDataEntity?
+
 
     // region ADD
 
-    @Insert()
-    fun addRecipeData(recipe: RecipeDataEntity)
+    @Insert(onConflict = REPLACE)
+    fun addRecipeData(recipe: RecipeDataEntity): Long
 
-    @Insert
+    @Insert(onConflict = REPLACE)
     fun addCookingStage(cookingStage: CookingStageEntity)
 
     @Transaction
     fun addRecipe(recipeData: RecipeDataEntity, cookingStages: List<CookingStageEntity>) {
-        addRecipeData(recipeData)
-        cookingStages.forEach {
-            addCookingStage(it)
+        addRecipeData(recipeData).let { newRecipeId ->
+            cookingStages.forEach {
+                addCookingStage(it.copy(recipeId = newRecipeId))
+            }
         }
     }
 
@@ -71,7 +81,6 @@ interface RecipeDao {
 
 
     // endregion UPDATE
-
 
 
 }

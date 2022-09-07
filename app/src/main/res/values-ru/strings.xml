@@ -6,11 +6,35 @@
     <string name="buter_author">История кулинарии</string>
     <string name="buter_title">Бутер</string>
     <string name="minutes">%1$d мин</string>
-    <string name="author">Автор: %1$s</string>
+    <string name="author_template">Автор: %1$s</string>
+    <string name="author">Автор:</string>
     <string name="edit_recipe_options">Редактировать</string>
     <string name="remove_recipe_option">Удалить</string>
     <string name="newRecipe">Новый рецепт</string>
     <string name="search_hint">Поиск по названию…</string>
     <string name="recipe_card">Карточка рецепта</string>
-    <string name="filter_title">Выберите интересующие кухни:</string>
+    <string name="filter_title">Национально-географические категории:</string>
+    <string name="submit">Применить</string>
+    <string name="clear_filter">Очистить фильтр</string>
+    <string name="stage_layout_hint">Stage %1d</string>
+    <string name="cuisine">Кухня:</string>
+    <string name="ingredients">Ингредиенты:</string>
+    <string name="cooking_time">Время приготовления:</string>
+    <string name="cooking_process">Процесс приготовления:</string>
+    <string name="recipe_fragment_label">Детали</string>
+    <string name="create_recipe">Новый рецепт</string>
+    <string name="edit_recipe">Изменить</string>
+    <string name="empty_state_message">Здесь пока нет рецептов… =(\nНо вы всегда можете приготовить\nБУТЕР!</string>
+    <string name="empty_state_image">Изображение бутерброда</string>
+    <string name="go_to_sandwich">А давай!</string>
+    <string name="title_hint">Введите название рецепта</string>
+    <string name="recipe_picture_src_hint">Ссылка на изображение рецепта</string>
+    <string name="recipe_picture_description">Изображение рецепта</string>
+    <string name="cuisine_hint">Кухня</string>
+    <string name="estimate_time">Приблизительное время(мин)</string>
+    <string name="ingredients_hint">Ингредиенты</string>
+    <string name="add_stage">Добавить этап</string>
+    <string name="save_recipe">Сохранить рецепт</string>
+    <string name="stage_picture_src_hint">Ссылка на изображение этапа</string>
+    <string name="stage_picture_description">Изображение этапа</string>
 </resources>

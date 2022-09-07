@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="cuisine">Cuisine: %1$s</string>
+    <string name="cuisine_template">Cuisine: %1$s</string>
+    <string name="cuisine">Cuisine:</string>
     <string name="russian_category">Russian</string>
     <string name="european_category">European</string>
     <string name="asian_category">Asian</string>
