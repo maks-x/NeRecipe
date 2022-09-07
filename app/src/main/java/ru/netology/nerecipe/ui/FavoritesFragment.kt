@@ -44,9 +44,9 @@ class FavoritesFragment : Fragment() {
             }
         }
 
-        viewModel.onFavoritesFragmentRecipeClickedEvent.observe(viewLifecycleOwner) { recipeData ->
+        viewModel.onFavoritesFragmentRecipeClickedEvent.observe(viewLifecycleOwner) {
             val direction =
-                FavoritesFragmentDirections.actionNavigationFavoritesToRecipeFragment(recipeData)
+                FavoritesFragmentDirections.actionNavigationFavoritesToRecipeFragment(it)
             findNavController().navigate(direction)
         }
 

@@ -12,7 +12,7 @@
         tools:layout="@layout/recipes_feed">
         <action
             android:id="@+id/action_navigation_recipes_to_recipeFragment"
-            app:destination="@id/recipeFragment" />
+            app:destination="@id/detailsFragment" />
         <action
             android:id="@+id/all_to_edit"
             app:destination="@id/editFragment">
@@ -29,7 +29,7 @@
         tools:layout="@layout/fragment_favorites">
         <action
             android:id="@+id/action_navigation_favorites_to_recipeFragment"
-            app:destination="@id/recipeFragment" />
+            app:destination="@id/detailsFragment" />
         <action
             android:id="@+id/favorites_to_create"
             app:destination="@id/editFragment">
@@ -40,13 +40,20 @@
     </fragment>
 
     <fragment
-        android:id="@+id/recipeFragment"
-        android:name="ru.netology.nerecipe.ui.RecipeFragment"
+        android:id="@+id/detailsFragment"
+        android:name="ru.netology.nerecipe.ui.DetailsFragment"
         android:label="@string/recipe_fragment_label"
-        tools:layout="@layout/fragment_recipe">
+        tools:layout="@layout/fragment_details">
         <argument
-            android:name="recipeData"
-            app:argType="ru.netology.nerecipe.obj.RecipeData" />
+            android:name="recipeId"
+            app:argType="long" />
+        <action
+            android:id="@+id/detailsToEdit"
+            app:destination="@id/editFragment">
+            <argument
+                android:name="recipeId"
+                app:argType="long" />
+        </action>
     </fragment>
 
     <fragment

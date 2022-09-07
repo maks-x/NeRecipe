@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,29 +12,45 @@
         android:orientation="vertical"
         android:padding="8dp">
 
-        <ImageView
-            android:id="@+id/recipe_picture"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@drawable/shape"
-            android:contentDescription="@string/recipe_picture_description"
-            android:scaleType="fitCenter"
-            tools:srcCompat="@drawable/buter" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/recipe_picture"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="@drawable/shape"
+                android:contentDescription="@string/recipe_picture_description"
+                android:scaleType="fitCenter"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@drawable/buter" />
+
+            <TextView
+                android:id="@+id/title_text_view"
+                style="@style/RecipeCardTextView.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:textSize="25sp"
+                app:layout_constraintTop_toBottomOf="@id/recipe_picture"
+                tools:text="Buter" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/menu_details"
+                style="@style/RecipeImageButton"
+                app:icon="@drawable/ic_more_vert_48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/title_text_view" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/title_text_view"
             style="@style/RecipeCardTextView.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="25sp"
-            tools:text="Buter" />
-
-        <TextView
-            style="@style/RecipeCardTextView.Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/cuisine" />
+            android:background="@android:drawable/divider_horizontal_textfield"
+            android:text="@string/cuisine"
+            android:textColor="?attr/colorPrimary" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/cuisine_text_view"
@@ -46,7 +63,9 @@
             style="@style/RecipeCardTextView.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/author" />
+            android:background="@android:drawable/divider_horizontal_textfield"
+            android:text="@string/author"
+            android:textColor="?attr/colorPrimary" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/author_text_view"
@@ -60,7 +79,9 @@
             style="@style/RecipeCardTextView.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/ingredients" />
+            android:background="@android:drawable/divider_horizontal_textfield"
+            android:text="@string/ingredients"
+            android:textColor="?attr/colorPrimary" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/ingredients_text_view"
@@ -76,7 +97,9 @@
             style="@style/RecipeCardTextView.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/cooking_time" />
+            android:background="@android:drawable/divider_horizontal_textfield"
+            android:text="@string/cooking_time"
+            android:textColor="?attr/colorPrimary" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/time_text_view"
@@ -90,7 +113,9 @@
             style="@style/RecipeCardTextView.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/cooking_process" />
+            android:background="@android:drawable/divider_horizontal_textfield"
+            android:text="@string/cooking_process"
+            android:textColor="?attr/colorPrimary" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/stages_region"

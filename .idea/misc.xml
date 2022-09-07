@@ -38,12 +38,14 @@
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_show_image_24dp.xml" value="0.11" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/ic_time_48dp.xml" value="0.1" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/shape.xml" value="0.1745" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/drawable/text_field_line.xml" value="0.155" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/empty_state_layout.xml" value="0.23125" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_add.xml" value="0.2484375" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_all.xml" value="0.25343999226562525" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_create.xml" value="0.19199999414062519" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_dashboard.xml" value="0.2484375" />
+        <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_details.xml" value="0.1" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_favorites.xml" value="0.2484375" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_filter.xml" value="0.264" />
         <entry key="..\:/Users/maks-/AndroidStudioProjects/NeRecipe/app/src/main/res/layout/fragment_home.xml" value="0.2484375" />

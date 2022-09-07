@@ -108,9 +108,9 @@ class AllFragment : Fragment(), TextWatcher {
 
 
 
-        viewModel.onAllFragmentRecipeClickedEvent.observe(viewLifecycleOwner) { recipeData ->
+        viewModel.onAllFragmentRecipeClickedEvent.observe(viewLifecycleOwner) {
             val direction =
-                AllFragmentDirections.actionNavigationRecipesToRecipeFragment(recipeData)
+                AllFragmentDirections.actionNavigationRecipesToRecipeFragment(it)
             findNavController().navigate(direction)
         }
 

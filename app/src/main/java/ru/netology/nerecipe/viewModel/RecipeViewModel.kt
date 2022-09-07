@@ -11,6 +11,7 @@ import ru.netology.nerecipe.obj.RecipeData
 import ru.netology.nerecipe.repository.RecipesRepository
 import ru.netology.nerecipe.repository.Repository
 import ru.netology.nerecipe.ui.AllFragment
+import ru.netology.nerecipe.ui.DetailsFragment
 import ru.netology.nerecipe.ui.FavoritesFragment
 import ru.netology.nerecipe.utils.SingleLiveEvent
 import ru.netology.nerecipe.utils.cuisineIDtoString
@@ -59,6 +60,9 @@ class RecipeViewModel(
     private val _navigateFromFavoritesToEditEvent = SingleLiveEvent<Long>()
     val navigateFromFavoritesToEditEvent: LiveData<Long>
         get() = _navigateFromFavoritesToEditEvent
+    private val _navigateFromDetailsToEditEvent = SingleLiveEvent<Long>()
+    val navigateFromDetailsToEditEvent: LiveData<Long>
+        get() = _navigateFromDetailsToEditEvent
 
 
     private val allCuisines =
@@ -95,8 +99,8 @@ class RecipeViewModel(
 
     val filteredEvent = SingleLiveEvent<List<RecipeData>>()
 
-    val onAllFragmentRecipeClickedEvent = SingleLiveEvent<RecipeData>()
-    val onFavoritesFragmentRecipeClickedEvent = SingleLiveEvent<RecipeData>()
+    val onAllFragmentRecipeClickedEvent = SingleLiveEvent<Long>()
+    val onFavoritesFragmentRecipeClickedEvent = SingleLiveEvent<Long>()
 
     val stagesRenderingEvent = SingleLiveEvent<List<CookingStage>>()
     fun renderStageRequest(recipeId: Long) {
@@ -135,6 +139,8 @@ class RecipeViewModel(
                 _navigateFromAllToEditEvent.value = recipeId
             FavoritesFragment.FROM_FAVORITES_FRAGMENT_TAG ->
                 _navigateFromFavoritesToEditEvent.value = recipeId
+            DetailsFragment.FROM_DETAILS_FRAGMENT_TAG ->
+                _navigateFromDetailsToEditEvent.value = recipeId
         }
     }
 
@@ -143,12 +149,11 @@ class RecipeViewModel(
     }
 
     override fun onRecipeClick(recipeId: Long, fromFragmentTag: String) {
-        val recipeData = repository.getRecipeData(recipeId)
         when (fromFragmentTag) {
             AllFragment.FROM_ALL_FRAGMENT_TAG ->
-                onAllFragmentRecipeClickedEvent.value = recipeData
+                onAllFragmentRecipeClickedEvent.value = recipeId
             FavoritesFragment.FROM_FAVORITES_FRAGMENT_TAG ->
-                onFavoritesFragmentRecipeClickedEvent.value = recipeData
+                onFavoritesFragmentRecipeClickedEvent.value = recipeId
         }
 
     }
