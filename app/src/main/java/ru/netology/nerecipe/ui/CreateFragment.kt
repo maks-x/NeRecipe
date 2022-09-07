@@ -52,9 +52,7 @@ class CreateFragment : Fragment() {
                     inflateNewStageLayout {
                         startIconDrawable = null
                     }
-                    return@observe
-                }
-                fillUpWithRecipe(it.first, it.second)
+                } else fillUpWithRecipe(it.first, it.second)
                 textWatcher.initialize()
                 textWatcher.afterTextChanged(null)
             }

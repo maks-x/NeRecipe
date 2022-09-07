@@ -32,9 +32,16 @@ class DetailsFragment : Fragment() {
         val adapter = RecipeStagesAdapter()
         val context = binding.root.context
         val recipeId = navArgs<DetailsFragmentArgs>().value.recipeId
-        lateinit var recipeData: RecipeData
-        viewModel.data.observe(viewLifecycleOwner) { listRecipeData ->
-            recipeData = listRecipeData.first { it.id == recipeId}
+        viewModel.renderRecipeRequest(recipeId)
+
+        binding.stagesRegion.adapter = adapter
+
+        viewModel.recipeRenderingEvent.observe(viewLifecycleOwner) {
+            val recipePair = checkNotNull(it) {
+                "There are no recipe with ID $recipeId!"
+            }
+            val recipeData = recipePair.first
+            val stages = recipePair.second
             with(binding) {
                 recipePicture.loadResOrURL(recipeData.pictureSrc)
                 titleTextView.text = recipeData.title
@@ -44,35 +51,29 @@ class DetailsFragment : Fragment() {
                 timeTextView.text = context.getString(R.string.minutes).format(recipeData.estimateTime)
                 titleTextView.text = recipeData.title
             }
-        }
-
-        binding.stagesRegion.adapter = adapter
-
-        viewModel.renderStageRequest(recipeId)
-
-        viewModel.stagesRenderingEvent.observe(viewLifecycleOwner) { stages ->
             adapter.submitList(stages)
         }
 
-        binding.menuDetails.setOnClickListener {
-            PopupMenu(context, binding.menuDetails).apply {
-                inflate(R.menu.popup_recipe_options)
-                setOnMenuItemClickListener { item ->
-                    when (item.itemId) {
-                        R.id.remove -> {
-                            viewModel.onRemoveClick(recipeId)
-                            findNavController().navigateUp()
-                            true
+        if (recipeId != RecipeData.SANDWICH_ID) {
+            binding.menuDetails.setOnClickListener {
+                PopupMenu(context, binding.menuDetails).apply {
+                    inflate(R.menu.popup_recipe_options)
+                    setOnMenuItemClickListener { item ->
+                        when (item.itemId) {
+                            R.id.remove -> {
+                                viewModel.onRemoveClick(recipeId)
+                                findNavController().navigateUp()
+                                true
+                            }
+                            R.id.edit -> {
+                                viewModel.onEditClick(recipeId, FROM_DETAILS_FRAGMENT_TAG)
+                                true
+                            }
+                            else -> false
                         }
-                        R.id.edit -> {
-                            viewModel.onEditClick(recipeId, FROM_DETAILS_FRAGMENT_TAG)
-                            true
-                        }
-                        else -> false
                     }
-                }
-            }.show()
-
+                }.show()
+            }
         }
         viewModel.navigateFromDetailsToEditEvent.observe(viewLifecycleOwner) {
             val direction = DetailsFragmentDirections.detailsToEdit(it)

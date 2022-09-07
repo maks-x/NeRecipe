@@ -102,20 +102,15 @@ class RecipeViewModel(
     val onAllFragmentRecipeClickedEvent = SingleLiveEvent<Long>()
     val onFavoritesFragmentRecipeClickedEvent = SingleLiveEvent<Long>()
 
-    val stagesRenderingEvent = SingleLiveEvent<List<CookingStage>>()
-    fun renderStageRequest(recipeId: Long) {
-        stagesRenderingEvent.value = repository.getRecipeStages(recipeId)
-    }
-
     val recipeRenderingEvent = SingleLiveEvent<Pair<RecipeData, List<CookingStage>>?>()
     fun renderRecipeRequest(recipeId: Long) {
-        recipeRenderingEvent.value =
-            if (recipeId == RecipeData.DRAFT_ID_NEW) {
-                repository.recipeDraftPair
-            } else Pair(
+        recipeRenderingEvent.value = when (recipeId) {
+            RecipeData.DRAFT_ID_NEW -> repository.recipeDraftPair
+            else -> Pair(
                 repository.getRecipeData(recipeId),
                 repository.getRecipeStages(recipeId)
             )
+        }
     }
 
     // region RecipeInteractionListener

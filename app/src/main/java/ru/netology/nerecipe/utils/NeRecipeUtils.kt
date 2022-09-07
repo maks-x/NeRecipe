@@ -63,59 +63,6 @@ internal fun Context.cuisineIDtoString(id: Int) =
         else -> "wrong CuisineID request"
     }
 
-internal fun insertSampleRecipes(context: Context, dao: RecipeDao, callback: (Int) -> Unit = {}) {
-
-    val prefs = context.getSharedPreferences(COMMON_SHARED_PREFS_KEY, Context.MODE_PRIVATE)
-
-    if (!prefs.getBoolean(FIRST_START_PREFS_KEY, true))
-        return
-
-    prefs.edit {
-        putBoolean(FIRST_START_PREFS_KEY, false)
-    }
-
-    val startCount = 10
-
-    List(startCount) { index ->
-        RecipeData(
-            id = index.toLong() + 1,
-            author = context.getString(R.string.buter_author),
-            estimateTime = 1,
-            title = context.getString(R.string.buter_title) + index.plus(1),
-            pictureSrc = R.drawable.buter.toString(),
-            isFavorite = true,
-            cuisine = context.getString(
-                if (index % 2 > 0) R.string.russian_category else R.string.mediterranean_category
-            ),
-            ingredients = "хлеб, колбаса"
-        )
-    }.forEachIndexed { index, recipeData ->
-        val recipeDataEntity = recipeData.copy(id = index.toLong() + 1).toRecipeDataEntity()
-        val stages = listOf(
-            CookingStage(
-                recipeId = recipeDataEntity.id,
-                turn = 1,
-                guidance = "Отрежь ломоть хлеба 1 см толщиной",
-                illustrationSrc = R.drawable.bread.toString()
-            ),
-            CookingStage(
-                recipeId = recipeDataEntity.id,
-                turn = 2,
-                guidance = "Отрежь два ломтя колбасы 0,5 см толщиной",
-                illustrationSrc = R.drawable.sausage.toString()
-            ),
-            CookingStage(
-                recipeId = recipeDataEntity.id,
-                turn = 3,
-                guidance = "Один ломоть на другой (как Дядя Фёдор или Кот Матроскин): готово! Приятного аппетита" +
-                        "!\n",
-                illustrationSrc = R.drawable.buter.toString()
-            )
-        ).map { it.toCookingStageEntity() }
-        dao.addRecipe(recipeDataEntity, stages)
-    }
-    callback(startCount)
-}
 
 internal fun View.switchVisibility(condition: Boolean = true) {
     if (condition) visibility = if (visibility == View.GONE) View.VISIBLE else View.GONE
@@ -175,8 +122,7 @@ internal fun FragmentCreateBinding.inflateNewStageLayout(
 
 internal fun FragmentCreateBinding.fillUpWithRecipe(
     recipeData: RecipeData,
-    stages: List<CookingStage>,
-    action: () -> Unit = {}
+    stages: List<CookingStage>
 ) {
     if (recipeData.title.isNotBlank()) {
         titleEdit.setText(recipeData.title)
@@ -205,7 +151,6 @@ internal fun FragmentCreateBinding.fillUpWithRecipe(
             illustrationInput.editText?.setText(cookingStage.illustrationSrc)
         }
     }
-    action
 }
 
 internal fun ViewGroup.inflateEmptyStateLayout(
@@ -256,6 +201,99 @@ internal fun FragmentCreateBinding.buildRecipePair(recipeId: Long) =
 
 internal fun FragmentAllBinding.switchFilterButtonActivated() {
     filtersButton.isActivated = filterGroup.chipGroup.checkedChipIds.isNotEmpty()
+}
+
+internal fun insertSampleRecipes(context: Context, dao: RecipeDao) {
+
+    val prefs = context.getSharedPreferences(COMMON_SHARED_PREFS_KEY, Context.MODE_PRIVATE)
+
+    if (!prefs.getBoolean(FIRST_START_PREFS_KEY, true))
+        return
+
+    prefs.edit {
+        putBoolean(FIRST_START_PREFS_KEY, false)
+    }
+
+    val startCount = 10
+
+    List(startCount) { index ->
+        RecipeData(
+            id = index.toLong() + 1,
+            author = context.getString(R.string.buter_author),
+            estimateTime = 1,
+            title = context.getString(R.string.buter_title) + index.plus(1),
+            pictureSrc = R.drawable.buter.toString(),
+            isFavorite = true,
+            cuisine = context.getString(
+                if (index % 2 > 0) R.string.russian_category else R.string.mediterranean_category
+            ),
+            ingredients = "хлеб, колбаса"
+        )
+    }.forEachIndexed { index, recipeData ->
+        val recipeDataEntity = recipeData.copy(id = index.toLong() + 1).toRecipeDataEntity()
+        val stages = listOf(
+            CookingStage(
+                recipeId = recipeDataEntity.id,
+                turn = 1,
+                guidance = "Отрежь ломоть хлеба 1 см толщиной",
+                illustrationSrc = R.drawable.bread.toString()
+            ),
+            CookingStage(
+                recipeId = recipeDataEntity.id,
+                turn = 2,
+                guidance = "Отрежь два ломтя колбасы 0,5 см толщиной",
+                illustrationSrc = R.drawable.sausage.toString()
+            ),
+            CookingStage(
+                recipeId = recipeDataEntity.id,
+                turn = 3,
+                guidance = "Один ломоть на другой (как Дядя Фёдор или Кот Матроскин): готово! Приятного аппетита" +
+                        "!\n",
+                illustrationSrc = R.drawable.buter.toString()
+            )
+        ).map { it.toCookingStageEntity() }
+        dao.addRecipe(recipeDataEntity, stages)
+    }
+    with(dao) {
+        addRecipe(
+            recipeData = RecipeData(
+                id = RecipeData.SANDWICH_ID,
+                author = context.getString(R.string.buter_author),
+                estimateTime = 1,
+                title = context.getString(R.string.buter_title),
+                pictureSrc = R.drawable.buter.toString(),
+                isFavorite = true,
+                cuisine = context.getString(R.string.russian_category),
+                ingredients = "хлеб, колбаса"
+            ).toRecipeDataEntity(),
+            cookingStages = listOf(
+                CookingStage(
+                    recipeId = RecipeData.SANDWICH_ID,
+                    turn = 1,
+                    guidance = "Отрежь ломоть хлеба 1 см толщиной",
+                    illustrationSrc = R.drawable.bread.toString()
+                ).toCookingStageEntity(),
+                CookingStage(
+                    recipeId = RecipeData.SANDWICH_ID,
+                    turn = 2,
+                    guidance = "Отрежь два ломтя колбасы 0,5 см толщиной",
+                    illustrationSrc = R.drawable.sausage.toString()
+                ).toCookingStageEntity(),
+                CookingStage(
+                    recipeId = RecipeData.SANDWICH_ID,
+                    turn = 3,
+                    guidance = "Складывваем (как Дядя Фёдор или Кот Матроскин): готово! Приятного аппетита!",
+                    illustrationSrc = R.drawable.buter.toString()
+                ).toCookingStageEntity()
+            )
+        )
+        addRecipe(
+            recipeData = RecipeData(id = RecipeData.DRAFT_ID_NEW).toRecipeDataEntity(),
+            cookingStages = listOf(
+                CookingStage(recipeId = RecipeData.DRAFT_ID_NEW).toCookingStageEntity()
+            )
+        )
+    }
 }
 
 // region APP_CONSTANTS
