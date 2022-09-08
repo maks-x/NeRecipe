@@ -29,6 +29,8 @@ class AllFragment : Fragment(), TextWatcher {
 
     private var emptyStateLayout: ConstraintLayout? = null
     private var filteredEmptyStateLayout: ConstraintLayout? = null
+    private val feedContainer
+        get() = binding.feed.feedContainer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,12 +54,17 @@ class AllFragment : Fragment(), TextWatcher {
             viewModel.data.observe(viewLifecycleOwner) { recipeDataList ->
                 val isNewRecipeAdded = recipeDataList.size > adapter.currentList.size
                 adapter.submitList(recipeDataList) {
-                    if (recipeDataList.isEmpty()) {
+                    if (recipeDataList.isEmpty() && emptyStateLayout == null) {
                         emptyStateLayout =
-                            root.inflateEmptyStateLayout(viewModel, FROM_ALL_FRAGMENT_TAG)
-                        return@submitList
+                            feedContainer.inflateEmptyStateLayout(
+                                viewModel,
+                                FROM_ALL_FRAGMENT_TAG
+                            )
                     }
-                    emptyStateLayout?.let { root.removeView(it) }
+                    if (recipeDataList.isNotEmpty()) {
+                        emptyStateLayout?.let { feedContainer.removeView(it) }
+                        emptyStateLayout = null
+                    }
                     if (isNewRecipeAdded) feed.recyclerView.apply {
                         scrollToPosition(top)
                     }
@@ -66,28 +73,22 @@ class AllFragment : Fragment(), TextWatcher {
 
             viewModel.filterEvent.observe(viewLifecycleOwner) { filteredList ->
                 adapter.submitList(filteredList) {
-                    if (filteredList.isEmpty()) {
+                    emptyStateLayout?.let { feedContainer.removeView(it) }
+                    if (filteredList.isEmpty() && filteredEmptyStateLayout == null) {
                         filteredEmptyStateLayout =
-                            root.inflateEmptyStateLayout(viewModel, FROM_ALL_FRAGMENT_TAG)
-                        return@submitList
+                            feedContainer.inflateEmptyStateLayout(
+                                viewModel,
+                                FROM_ALL_FRAGMENT_TAG
+                            )
                     }
-                    emptyStateLayout?.let { root.removeView(it) }
-                    filteredEmptyStateLayout?.let { root.removeView(it) }
+                    if (filteredList.isNotEmpty()) {
+                        filteredEmptyStateLayout?.let { feedContainer.removeView(it) }
+                        filteredEmptyStateLayout = null
+                    }
                 }
 
             }
-            viewModel.filterEvent.observe(viewLifecycleOwner) { filteredList ->
-                adapter.submitList(filteredList) {
-                    if (filteredList.isEmpty()) {
-                        filteredEmptyStateLayout =
-                            root.inflateEmptyStateLayout(viewModel, FROM_ALL_FRAGMENT_TAG)
-                        return@submitList
-                    }
-                    emptyStateLayout?.let { root.removeView(it) }
-                    filteredEmptyStateLayout?.let { root.removeView(it) }
-                }
 
-            }
             filtersButton.setOnClickListener {
                 filterGroup.root.switchVisibility()
             }
@@ -104,10 +105,6 @@ class AllFragment : Fragment(), TextWatcher {
             }
         }
 
-
-
-
-
         viewModel.onAllFragmentRecipeClickedEvent.observe(viewLifecycleOwner) {
             val direction =
                 AllFragmentDirections.actionNavigationRecipesToRecipeFragment(it)
@@ -118,12 +115,6 @@ class AllFragment : Fragment(), TextWatcher {
             val direction = AllFragmentDirections.allToEdit(it)
             findNavController().navigate(direction)
         }
-
-        viewModel.filteredEvent.observe(viewLifecycleOwner) { list ->
-            adapter.submitList(list)
-        }
-
-
 
         return binding.root
     }

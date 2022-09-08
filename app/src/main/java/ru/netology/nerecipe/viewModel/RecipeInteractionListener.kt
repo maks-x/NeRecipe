@@ -5,7 +5,7 @@ import ru.netology.nerecipe.obj.RecipeData
 
 interface RecipeInteractionListener {
     fun saveRecipe(recipeData: RecipeData, stages: List<CookingStage>)
-    fun onReplaceRecipeCard(from: Int, to: Int)
+    fun onReplaceRecipeCard(from: Long, to: Long)
     fun onRemoveClick(recipeId: Long)
     fun onEditClick(recipeId: Long, fromFragmentTag: String)
     fun onAddToFavoritesClick(recipeId: Long)

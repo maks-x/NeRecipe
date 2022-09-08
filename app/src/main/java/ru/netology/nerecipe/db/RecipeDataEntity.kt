@@ -11,6 +11,9 @@ data class RecipeDataEntity(
     @ColumnInfo(name = "id")
     val id: Long = 0L,
 
+    @ColumnInfo(name = "ordinal")
+    val ordinal: Long = 0L,
+
     @ColumnInfo(name = "title")
     val title: String,
 

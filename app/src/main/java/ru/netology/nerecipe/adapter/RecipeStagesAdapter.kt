@@ -10,21 +10,21 @@ import ru.netology.nerecipe.obj.CookingStage
 import ru.netology.nerecipe.utils.renderStage
 
 class RecipeStagesAdapter
-    : ListAdapter<CookingStage, RecipeStagesAdapter.ViewHolder>(DiffCallback) {
+    : ListAdapter<CookingStage, RecipeStagesAdapter.StagesViewHolder>(DiffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StagesViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val recipeStageBinding = RecipeStageBinding.inflate(
             inflater, parent, false
         )
-        return ViewHolder(recipeStageBinding)
+        return StagesViewHolder(recipeStageBinding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: StagesViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class ViewHolder(
+    class StagesViewHolder(
         private val recipeStageBinding: RecipeStageBinding
     ) : RecyclerView.ViewHolder(recipeStageBinding.root) {
 

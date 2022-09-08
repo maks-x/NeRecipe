@@ -77,7 +77,7 @@ class RecipeViewModel(
         filter {
             currentCuisineFilters.contains(it.cuisine)
         }.filter {
-            it.title.contains(currentTitleFilter)
+            it.title.lowercase().contains(currentTitleFilter.lowercase())
         }
 
     fun submitCuisineFilter(filtersIds: List<Int>) {
@@ -97,15 +97,13 @@ class RecipeViewModel(
         _filterEvent.value = allRecipes.filtered()
     }
 
-    val filteredEvent = SingleLiveEvent<List<RecipeData>>()
-
     val onAllFragmentRecipeClickedEvent = SingleLiveEvent<Long>()
     val onFavoritesFragmentRecipeClickedEvent = SingleLiveEvent<Long>()
 
     val recipeRenderingEvent = SingleLiveEvent<Pair<RecipeData, List<CookingStage>>?>()
     fun renderRecipeRequest(recipeId: Long) {
         recipeRenderingEvent.value = when (recipeId) {
-            RecipeData.DRAFT_ID_NEW -> repository.recipeDraftPair
+            RecipeData.DRAFT_ID -> repository.recipeDraftPair
             else -> Pair(
                 repository.getRecipeData(recipeId),
                 repository.getRecipeStages(recipeId)
@@ -120,8 +118,8 @@ class RecipeViewModel(
 
     // как быть, если элементов станет больше, чем Integer.MAX_VALUE?
     // ведь viewHolder.absoluteAdapterPosition возвращает Int
-    override fun onReplaceRecipeCard(from: Int, to: Int) {
-        repository.replaceRecipe(from.toLong(), to.toLong())
+    override fun onReplaceRecipeCard(from: Long, to: Long) {
+        repository.replaceRecipe(from, to)
     }
 
     override fun onRemoveClick(recipeId: Long) {

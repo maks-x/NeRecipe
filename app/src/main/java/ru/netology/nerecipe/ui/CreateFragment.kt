@@ -41,7 +41,7 @@ class CreateFragment : Fragment() {
         )
         binding.cuisineCategoryActv.setAdapter(cuisineArrayAdapter)
 
-        viewModel.renderRecipeRequest(RecipeData.DRAFT_ID_NEW)
+        viewModel.renderRecipeRequest(RecipeData.DRAFT_ID)
 
 
 
@@ -83,7 +83,7 @@ class CreateFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        if (needDraft) viewModel.setDraft(binding.buildRecipePair(RecipeData.DRAFT_ID_NEW))
+        if (needDraft) viewModel.setDraft(binding.buildRecipePair(RecipeData.DRAFT_ID))
         super.onDestroyView()
     }
 }

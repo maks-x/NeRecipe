@@ -20,7 +20,7 @@ class Repository(
         get() = dao.getDraftRecipeData()?.let { recipeDataEntity ->
             Pair(
                 recipeDataEntity.toRecipeData(),
-                dao.getRecipeStagesEntities(RecipeData.DRAFT_ID_NEW).map { it.toCookingStage() }
+                dao.getRecipeStagesEntities(RecipeData.DRAFT_ID).map { it.toCookingStage() }
             )
         }
         set(value) {
@@ -29,7 +29,7 @@ class Repository(
                     recipePair.first.toRecipeDataEntity(),
                     recipePair.second.map { it.toCookingStageEntity() }
                 )
-            } ?: dao.removeRecipe(RecipeData.DRAFT_ID_NEW)
+            } ?: dao.removeRecipe(RecipeData.DRAFT_ID)
         }
 
     override val recipesWithoutStages = dao.getAllRecipes().map { listRecipesData ->
@@ -77,7 +77,8 @@ class Repository(
     }
 
     override fun replaceRecipe(from: Long, to: Long) {
-        //TODO репозиция элементов БД
+        dao.replaceRecipe(from, to)
+//        dao.rearrangeAfterReplace(from, to)
     }
 
 

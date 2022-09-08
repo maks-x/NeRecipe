@@ -5,6 +5,7 @@ import ru.netology.nerecipe.obj.RecipeData
 
 internal fun RecipeData.toRecipeDataEntity() = RecipeDataEntity(
     id = id,
+    ordinal = ordinal,
     title = title,
     author = author,
     cuisine = cuisine,
@@ -32,6 +33,7 @@ internal fun CookingStageEntity.toCookingStage() = CookingStage(
 
 internal fun RecipeDataEntity.toRecipeData() = RecipeData(
     id = id,
+    ordinal = ordinal,
     title = title,
     author = author,
     cuisine = cuisine,

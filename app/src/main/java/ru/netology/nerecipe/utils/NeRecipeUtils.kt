@@ -288,9 +288,9 @@ internal fun insertSampleRecipes(context: Context, dao: RecipeDao) {
             )
         )
         addRecipe(
-            recipeData = RecipeData(id = RecipeData.DRAFT_ID_NEW).toRecipeDataEntity(),
+            recipeData = RecipeData(id = RecipeData.DRAFT_ID).toRecipeDataEntity(),
             cookingStages = listOf(
-                CookingStage(recipeId = RecipeData.DRAFT_ID_NEW).toCookingStageEntity()
+                CookingStage(recipeId = RecipeData.DRAFT_ID).toCookingStageEntity()
             )
         )
     }

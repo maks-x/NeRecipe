@@ -15,28 +15,28 @@ import ru.netology.nerecipe.viewModel.RecipeInteractionListener
 class RecipeFeedAdapter(
     private val interactionListener: RecipeInteractionListener,
     private val fomFragmentTag: String
-) : ListAdapter<RecipeData, RecipeFeedAdapter.ViewHolder>(DiffCallback) {
+) : ListAdapter<RecipeData, RecipeFeedAdapter.RecipesViewHolder>(DiffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipesViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val recipeCardBinding = RecipeCardBinding.inflate(
             inflater, parent, false
         )
-        return ViewHolder(recipeCardBinding, interactionListener)
+        return RecipesViewHolder(recipeCardBinding, interactionListener)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecipesViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    inner class ViewHolder(
+    inner class RecipesViewHolder(
         private val recipeCardBinding: RecipeCardBinding,
         listener: RecipeInteractionListener
     ) : RecyclerView.ViewHolder(recipeCardBinding.root) {
-        var recipeId: Long? = null
-            private set
 
         private lateinit var recipeData: RecipeData
+        val recipeOrdinal
+            get() = recipeData.ordinal
 
         private val popupMenu by lazy {
             PopupMenu(itemView.context, recipeCardBinding.menu).apply {
@@ -71,7 +71,6 @@ class RecipeFeedAdapter(
 
         fun bind(recipeData: RecipeData) {
             this.recipeData = recipeData
-            recipeId = recipeData.id
             recipeCardBinding.renderRecipeCard(recipeData)
         }
     }
